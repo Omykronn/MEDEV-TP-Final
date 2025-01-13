@@ -1,6 +1,9 @@
 package othello; 
 
-import othello.Pion; 
+import java.util.logging.Logger;
+import java.util.Scanner;
+import java.util.logging.Level;
+import othello.Pion;
 import utils.Tuple; 
 
 public class Partie {
@@ -8,6 +11,7 @@ public class Partie {
     private int tour; 
     private int taillePlateau; 
     private boolean partieFinie; 
+    private Logger logger;
 
     /**
      * Constructeur de Partie avec paramètre 
@@ -32,7 +36,111 @@ public class Partie {
         this.plateau[taillePlateau/2][taillePlateau/2-1].setCouleur(-1); 
         this.plateau[taillePlateau/2][taillePlateau/2].setCouleur(1); 
 
+        this.logger = Logger.getLogger("othello.partie.logger");
+    }
 
+    /**
+     * Execution d'une partie
+     */
+    public void jouer() {
+        while (!this.partieFinie) {
+            this.tourDeJeu();
+
+            this.tour ++;
+        }
+    }
+    
+    /**
+     * Execution d'un tour de jeu
+     */
+    public void tourDeJeu() {
+        Tuple action;
+
+        this.afficher();
+        action = this.choix();
+    }
+
+    /**
+     * Affichage du plateau
+     */
+    public void afficher() {
+        String message = "Configuration actuel\n\n  ";
+
+        // Affichage du nom des colonnes
+        for (int k = 0; k < this.taillePlateau; k++) {
+            message += Character.toString(65 + k);
+        }
+
+        message += '\n';
+
+        // Affichage du plateau
+        for (int i = 0; i < this.taillePlateau; i++) {
+            // Affichage des lignes
+            message += "\n" + (i + 1) + ' ';
+
+            for (int j = 0; j < this.taillePlateau; j++) {
+                message += this.plateau[i][j].affichage();
+            }
+        }
+
+        this.logger.log(Level.OFF, message + '\n');
+    }
+
+    /**
+     * Choix de l'action
+     * @return Coordonnées du pion à placer
+     */
+    public Tuple choix() {
+        boolean actionLicite = false;
+        Scanner scanner = new Scanner(System.in);
+        String answer;
+        Tuple action = null;
+
+        this.messageTour();
+
+        while (!actionLicite) {
+            answer = scanner.nextLine();
+
+            if (answer == "pass") {
+                action = null;
+                actionLicite = true;
+            }
+            else {
+                action = new Tuple(((int) answer.charAt(0)) - 65, ((int) answer.charAt(1)) - 65);
+                actionLicite = action.getX() >= 0 && action.getX() < this.taillePlateau && action.getY() >= 0 && action.getY() < this.taillePlateau && this.testPrise(action);
+            }
+        }
+
+        return action;
+    }
+
+    /**
+     * Vérifie si l'action engendre une prise
+     * @param action Action à vérifier
+     * @return  Validité de l'action
+     */
+    public boolean testPrise(Tuple action) {
+        // TODO : Vérification
+
+        return true;
+    }
+
+    /**
+     * Affiche quel couleur joue
+     */
+    private void messageTour() {
+        String message = "Aux ";
+
+        if (this.joueurActuel() == 1) {
+            message += "blanc";
+        }
+        else {
+            message += "noir";
+        }
+
+        message += "s de jouer ! (e.g e1 ou pass pour passer le tour)";
+
+        this.logger.log(Level.OFF, message);
     }
 
     /**
@@ -92,11 +200,42 @@ public class Partie {
     }
 
     /**
+     * A partir du tour de jeu en cours, donne le joueur actuel
+     * @return  tour actuel (-1/1)
+     */
+    private int joueurActuel() {
+
+        int couleurJoueur;
+        if (this.getTour()%2 == 0) {
+            couleurJoueur = -1; //noir
+        }else {
+            couleurJoueur = 1; //blanc
+        }
+        return couleurJoueur;
+    }   
+
+    /**
      * Setter plateau
      * @param plateau nouveau plateau de pion
      */
     public void setPlateau(Pion[][] plateau){
         this.plateau=plateau; 
+    }
+
+    /**
+     * Getter logger
+     * @return Logger de la partie
+     */
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    /**
+     * Setter logger
+     * @param logger Nouveau logger
+     */
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
     /**
      *A partir du tour de jeu en cours, donne le joueur actuel 
