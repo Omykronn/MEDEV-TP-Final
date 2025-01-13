@@ -1,6 +1,7 @@
 package othello; 
 
 import java.util.logging.Logger;
+import java.util.Scanner;
 import java.util.logging.Level;
 import othello.Pion;
 import utils.Tuple; 
@@ -62,6 +63,52 @@ public class Partie {
         }
 
         this.logger.log(Level.OFF, message + '\n');
+    }
+
+    /**
+     * Choix de l'action
+     * @return Coordonnées du pion à placer
+     */
+    public Tuple choix() {
+        boolean actionLicite = false;
+        Scanner scanner = new Scanner(System.in);
+        String answer;
+        Tuple action = null;
+
+        this.messageTour();
+
+        while (!actionLicite) {
+            answer = scanner.nextLine();
+
+            if (answer == "pass") {
+                action = null;
+                actionLicite = true;
+            }
+            else {
+                action = new Tuple(((int) answer.charAt(0)) - 65, ((int) answer.charAt(1)) - 65);
+                actionLicite = action.getX() >= 0 && action.getX() < this.taillePlateau && action.getY() >= 0 && action.getY() < this.taillePlateau && this.testPrise(action);
+            }
+        }
+
+        return action;
+    }
+
+    /**
+     * Affiche quel couleur joue
+     */
+    private void messageTour() {
+        String message = "Aux ";
+
+        if (this.joueurActuel() == 1) {
+            message += "blanc";
+        }
+        else {
+            message += "noir";
+        }
+
+        message += "s de jouer ! (e.g e1 ou pass pour passer le tour)";
+
+        this.logger.log(Level.OFF, message);
     }
 
     /**
