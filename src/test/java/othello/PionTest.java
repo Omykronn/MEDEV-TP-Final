@@ -52,7 +52,7 @@ public class PionTest {
     @Test
     public void testAffichage() {
         Pion instance = new Pion(1);
-        assertEquals(instance.affichage(), "░");
+        assertEquals(instance.affichage(), "█");
 
         Pion instanceVide = new Pion(); 
         assertEquals(instanceVide.affichage(), " ");
