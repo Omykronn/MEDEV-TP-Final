@@ -40,6 +40,27 @@ public class Partie {
     }
 
     /**
+     * Execution d'une partie
+     */
+    public void jouer() {
+        while (!this.partieFinie) {
+            this.tourDeJeu();
+
+            this.tour ++;
+        }
+    }
+    
+    /**
+     * Execution d'un tour de jeu
+     */
+    public void tourDeJeu() {
+        Tuple action;
+
+        this.afficher();
+        action = this.choix();
+    }
+
+    /**
      * Affichage du plateau
      */
     public void afficher() {
@@ -91,6 +112,17 @@ public class Partie {
         }
 
         return action;
+    }
+
+    /**
+     * Vérifie si l'action engendre une prise
+     * @param action Action à vérifier
+     * @return  Validité de l'action
+     */
+    public boolean testPrise(Tuple action) {
+        // TODO : Vérification
+
+        return true;
     }
 
     /**
