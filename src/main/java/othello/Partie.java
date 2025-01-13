@@ -2,8 +2,8 @@ package othello;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
-
-import othello.Pion; 
+import othello.Pion;
+import utils.Tuple; 
 
 public class Partie {
     private Pion[][] plateau; 
@@ -38,6 +38,9 @@ public class Partie {
         this.logger = Logger.getLogger("othello.partie.logger");
     }
 
+    /**
+     * Affichage du plateau
+     */
     public void afficher() {
         String message = "Configuration actuel\n\n  ";
 
@@ -116,6 +119,21 @@ public class Partie {
     public void setPartieFinie(boolean fin){
         this.partieFinie=fin; 
     }
+
+    /**
+     * A partir du tour de jeu en cours, donne le joueur actuel
+     * @return  tour actuel (-1/1)
+     */
+    private int joueurActuel() {
+
+        int couleurJoueur;
+        if (this.getTour()%2 == 0) {
+            couleurJoueur = -1; //noir
+        }else {
+            couleurJoueur = 1; //blanc
+        }
+        return couleurJoueur;
+    }   
 
     /**
      * Setter plateau
