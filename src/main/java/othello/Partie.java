@@ -39,8 +39,8 @@ public class Partie {
      * Getter partieFinie
      * @return un boolean qui donne true quand la partie est finie 
      */
-    public int getPartieFinie(){
-        return this.PartieFinie; 
+    public boolean getPartieFinie(){
+        return this.partieFinie; 
     }
 
     /**
