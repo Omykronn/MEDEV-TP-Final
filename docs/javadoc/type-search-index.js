@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"othello","l":"Othello"},{"p":"othello","l":"Partie"},{"p":"othello","l":"Pion"},{"p":"utils","l":"Tuple"}];updateSearchResults();
