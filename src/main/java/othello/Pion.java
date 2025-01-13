@@ -1,3 +1,4 @@
+package othello; 
 
 public class Pion {
     private int couleur;
@@ -55,7 +56,7 @@ public class Pion {
             return "N"; 
         }
         else {
-            return "V"; 
+            return ""; 
         }
     }
 
@@ -65,10 +66,10 @@ public class Pion {
      */
     public boolean estPose(){
         if (this.couleur ==0){
-            return true;
+            return false;
         }
         else {
-            return false; 
+            return true; 
         }
     }
 }
