@@ -237,20 +237,6 @@ public class Partie {
     public void setLogger(Logger logger) {
         this.logger = logger;
     }
-    /**
-     *A partir du tour de jeu en cours, donne le joueur actuel 
-     @return tour actuel (-1/1)
-     */
-    private int joueurActuel(){
-         
-        int couleurJoueur; 
-        if (this.getTour()%2 == 0) {
-            couleurJoueur = -1; //noir
-        }else {
-            couleurJoueur = 1; //blanc
-        }
-        return couleurJoueur; 
-    }
     
     /**
      * On récupère le choix du joueur et on applique les modifications au plateau, pion à pauser et pion à retourner
