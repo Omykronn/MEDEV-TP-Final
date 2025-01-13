@@ -51,13 +51,13 @@ public class Pion {
     public String affichage(){
         String color; 
         if (this.couleur==1){
-            color= "B"; 
+            color= "░"; 
         }
         else if (this.couleur ==-1){
-            color ="N"; 
+            color ="█"; 
         }
         else {
-            color= ""; 
+            color= " "; 
         }
         return color; 
     }
