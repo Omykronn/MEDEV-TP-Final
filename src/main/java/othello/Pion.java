@@ -49,15 +49,17 @@ public class Pion {
      * @return couleur du pion N/B/V
      */
     public String affichage(){
+        String color; 
         if (this.couleur==1){
-            return "B"; 
+            color= "B"; 
         }
         else if (this.couleur ==-1){
-            return "N"; 
+            color ="N"; 
         }
         else {
-            return ""; 
+            color= ""; 
         }
+        return color; 
     }
 
     /**
@@ -65,11 +67,13 @@ public class Pion {
      * @return pion posé ou non
      */
     public boolean estPose(){
+        boolean reponse; 
         if (this.couleur ==0){
-            return false;
+            reponse =false;
         }
         else {
-            return true; 
+            reponse = true; 
         }
+        return reponse;
     }
 }
