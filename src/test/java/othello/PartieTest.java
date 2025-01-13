@@ -14,6 +14,9 @@ public class PartieTest{
         assertEquals(instance.getTaillePlateau(), 8);
         assertEquals(instance.getPartieFinie(),false); 
 
+        Pion pionTest = new Pion(); 
+        assertEquals(instance.getPlateau()[0][0].getCouleur(),pionTest.getCouleur()); 
+
     }
     
     /**
