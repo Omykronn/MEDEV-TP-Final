@@ -11,3 +11,4 @@ Lien vers le [rapport](https://docs.google.com/document/d/1WXljlqr3KDEFyG_ywuad6
 Nous codons le jeu d'Othello en java avec une interface texte permettant de joueur à 2. 
 
 # Conception
+Voir les documents de conception dans le répertoire docs/conception
