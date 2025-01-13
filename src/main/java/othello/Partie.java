@@ -1,6 +1,7 @@
 package othello; 
 
 import othello.Pion; 
+import utils.Tuple; 
 
 public class Partie {
     private Pion[][] plateau; 
@@ -28,8 +29,8 @@ public class Partie {
 
         this.plateau[taillePlateau/2-1][taillePlateau/2-1].setCouleur(1); 
         this.plateau[taillePlateau/2-1][taillePlateau/2].setCouleur(-1); 
-        this.plateau[taillePlateau/2][taillePlateau/2-1].setCouleur(1); 
-        this.plateau[taillePlateau/2][taillePlateau/2].setCouleur(-1); 
+        this.plateau[taillePlateau/2][taillePlateau/2-1].setCouleur(-1); 
+        this.plateau[taillePlateau/2][taillePlateau/2].setCouleur(1); 
 
 
     }
@@ -96,5 +97,92 @@ public class Partie {
      */
     public void setPlateau(Pion[][] plateau){
         this.plateau=plateau; 
+    }
+    /**
+     *A partir du tour de jeu en cours, donne le joueur actuel 
+     @return tour actuel (-1/1)
+     */
+    private int joueurActuel(){
+         
+        int couleurJoueur; 
+        if (this.getTour()%2 == 0) {
+            couleurJoueur = -1; //noir
+        }else {
+            couleurJoueur = 1; //blanc
+        }
+        return couleurJoueur; 
+    }
+    
+    /**
+     * On récupère le choix du joueur et on applique les modifications au plateau, pion à pauser et pion à retourner
+     * ATTENTION en l'état, on n'applique l'effet qu'en ligne et en colonne et pas en diagonal
+     * @param choix le tuple de position que le joueur a choisi pour placer son pion
+     */
+    public void appliquer(Tuple choix){
+        int posX=choix.getX(); 
+        int posY=choix.getY(); 
+
+        int couleurJoueur=this.joueurActuel(); 
+
+        this.plateau[posX][posY].setCouleur(couleurJoueur);
+
+        
+        //le long de la colonne x vers le bas
+        int positionArret = posX+1; 
+        int couleurAutre = this.getPlateau()[positionArret][posY].getCouleur(); 
+        while (positionArret < this.getTaillePlateau() && couleurAutre != 0 && couleurAutre != couleurJoueur){
+            positionArret = positionArret+1; 
+            couleurAutre=this.getPlateau()[positionArret][posY].getCouleur(); 
+        }
+
+        if (couleurAutre == couleurJoueur){
+            for (int i = posX+1 ; i<positionArret ;  i++){
+                this.getPlateau()[i][posY].retourner(); 
+            }
+        }
+
+        //le long de la colonne x vers le haut
+        positionArret = posX-1; 
+        couleurAutre = this.getPlateau()[positionArret][posY].getCouleur(); 
+        while (positionArret >-1  && couleurAutre != 0 && couleurAutre != couleurJoueur){
+            positionArret = positionArret-1; 
+            couleurAutre=this.getPlateau()[positionArret][posY].getCouleur(); 
+        }
+
+        if (couleurAutre == couleurJoueur){
+            for (int i =positionArret+1; i<posX ;  i++){
+                this.getPlateau()[i][posY].retourner(); 
+            }
+        }
+
+        //le long de la ligne y vers la droite
+        positionArret = posY+1; 
+        couleurAutre = this.getPlateau()[posX][positionArret].getCouleur(); 
+        while (positionArret < this.getTaillePlateau() && couleurAutre != 0 && couleurAutre != couleurJoueur){
+            positionArret = positionArret+1; 
+            couleurAutre=this.getPlateau()[posX][positionArret].getCouleur(); 
+        }
+
+        if (couleurAutre == couleurJoueur){
+            for (int i = posY+1 ; i<positionArret ;  i++){
+                this.getPlateau()[posX][i].retourner(); 
+            }
+        }
+
+        //le long de la ligne y vers la gauche
+        positionArret = posY-1; 
+        couleurAutre = this.getPlateau()[posX][positionArret].getCouleur(); 
+        while (positionArret >-1  && couleurAutre != 0 && couleurAutre != couleurJoueur){
+            positionArret = positionArret-1; 
+            couleurAutre=this.getPlateau()[posX][positionArret].getCouleur(); 
+        }
+
+        if (couleurAutre == couleurJoueur){
+            for (int i =positionArret+1; i<posY ;  i++){
+                this.getPlateau()[posX][i].retourner(); 
+            }
+        }
+
+
     }
 }

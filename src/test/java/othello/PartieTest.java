@@ -1,5 +1,7 @@
 package othello; 
 
+import utils.Tuple; 
+
 import org.junit.jupiter.api.Test; 
 import static org.junit.jupiter.api.Assertions.assertEquals; 
 
@@ -76,4 +78,37 @@ public class PartieTest{
         instance.setPartieFinie(true);
         assertEquals(instance.getPartieFinie(), true);
     }
+
+    
+
+    /**
+     * Test of appliquer method, of class Partie.
+     */
+    @Test
+    public void testAppliquer() {
+        Partie instance = new Partie(8);
+        Tuple choix = new Tuple(2,3); 
+        instance.appliquer(choix); 
+        assertEquals(instance.getPlateau()[2][3].getCouleur(), -1);
+        assertEquals(instance.getPlateau()[3][3].getCouleur(), -1);
+
+        Partie instance2 = new Partie(8);
+        choix = new Tuple(5,4); 
+        instance2.appliquer(choix); 
+        assertEquals(instance2.getPlateau()[5][4].getCouleur(), -1);
+        assertEquals(instance2.getPlateau()[4][4].getCouleur(), -1);
+
+        Partie instance3 = new Partie(8);
+        choix = new Tuple(3,2); 
+        instance3.appliquer(choix); 
+        assertEquals(instance3.getPlateau()[3][2].getCouleur(), -1);
+        assertEquals(instance3.getPlateau()[3][3].getCouleur(), -1);
+
+        Partie instance4 = new Partie(8);
+        choix = new Tuple(4,5); 
+        instance4.appliquer(choix); 
+        assertEquals(instance4.getPlateau()[4][5].getCouleur(), -1);
+        assertEquals(instance4.getPlateau()[4][4].getCouleur(), -1);
+    }
+
 }
