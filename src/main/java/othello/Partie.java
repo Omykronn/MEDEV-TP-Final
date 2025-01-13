@@ -1,6 +1,7 @@
 package othello; 
 
 import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import othello.Pion; 
 
@@ -31,10 +32,33 @@ public class Partie {
 
         this.plateau[taillePlateau/2-1][taillePlateau/2-1].setCouleur(1); 
         this.plateau[taillePlateau/2-1][taillePlateau/2].setCouleur(-1); 
-        this.plateau[taillePlateau/2][taillePlateau/2-1].setCouleur(1); 
-        this.plateau[taillePlateau/2][taillePlateau/2].setCouleur(-1); 
+        this.plateau[taillePlateau/2][taillePlateau/2-1].setCouleur(-1); 
+        this.plateau[taillePlateau/2][taillePlateau/2].setCouleur(1); 
 
         this.logger = Logger.getLogger("othello.partie.logger");
+    }
+
+    public void afficher() {
+        String message = "Configuration actuel\n\n  ";
+
+        // Affichage du nom des colonnes
+        for (int k = 0; k < this.taillePlateau; k++) {
+            message += Character.toString(65 + k);
+        }
+
+        message += '\n';
+
+        // Affichage du plateau
+        for (int i = 0; i < this.taillePlateau; i++) {
+            // Affichage des lignes
+            message += "\n" + (i + 1) + ' ';
+
+            for (int j = 0; j < this.taillePlateau; j++) {
+                message += this.plateau[i][j].affichage();
+            }
+        }
+
+        this.logger.log(Level.OFF, message + '\n');
     }
 
     /**
