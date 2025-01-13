@@ -10,6 +10,8 @@ public class Partie {
 
     /**
      * Constructeur de Partie avec paramètre 
+     * Construit le plateau en début de jeu avec les pions du centre déjà placés
+     * @param taillePlateau la taille du plateau carré 
      */
     public Partie(int taillePlateau){
         this.tour = 0; 
@@ -17,6 +19,19 @@ public class Partie {
         this.partieFinie = false; 
 
         this.plateau = new Pion[taillePlateau][taillePlateau]; 
+        for (int i =0 ; i<this.taillePlateau; i++){
+            for (int j= 0; j<this.taillePlateau; j++){
+                this.plateau[i][j]=new Pion(); 
+            }
+        }
+       
+
+        this.plateau[taillePlateau/2-1][taillePlateau/2-1].setCouleur(1); 
+        this.plateau[taillePlateau/2-1][taillePlateau/2].setCouleur(-1); 
+        this.plateau[taillePlateau/2][taillePlateau/2-1].setCouleur(1); 
+        this.plateau[taillePlateau/2][taillePlateau/2].setCouleur(-1); 
+
+
     }
 
     /**
