@@ -1,5 +1,7 @@
 package othello; 
 
+import java.util.logging.Logger;
+
 import othello.Pion; 
 
 public class Partie {
@@ -7,6 +9,7 @@ public class Partie {
     private int tour; 
     private int taillePlateau; 
     private boolean partieFinie; 
+    private Logger logger;
 
     /**
      * Constructeur de Partie avec paramètre 
@@ -31,7 +34,7 @@ public class Partie {
         this.plateau[taillePlateau/2][taillePlateau/2-1].setCouleur(1); 
         this.plateau[taillePlateau/2][taillePlateau/2].setCouleur(-1); 
 
-
+        this.logger = Logger.getLogger("othello.partie.logger");
     }
 
     /**
@@ -96,5 +99,21 @@ public class Partie {
      */
     public void setPlateau(Pion[][] plateau){
         this.plateau=plateau; 
+    }
+
+    /**
+     * Getter logger
+     * @return Logger de la partie
+     */
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    /**
+     * Setter logger
+     * @param logger Nouveau logger
+     */
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 }
